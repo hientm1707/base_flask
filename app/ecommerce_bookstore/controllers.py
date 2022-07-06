@@ -1,50 +1,50 @@
 from Adafruit_IO import Client, RequestError
 from flask import make_response, jsonify, json, request, session, Blueprint
 
-mod_first = Blueprint('auth', __name__, url_prefix='/test') 
+first_mod = Blueprint('auth', __name__, url_prefix='/test')
 
-@mod_first.route('/', methods=['GET'])
+@first_mod.route('/', methods=['GET'])
 def homepage():
     return '<p> ok </p>'
 
 
-@mod_first.route('/delLogs', methods=['GET'])
+@first_mod.route('/delLogs', methods=['GET'])
 def delLogs():
     db.LOGS.delete_many({})
     return 'Deleted all logs'
 
 
-@mod_first.route('/api/account/register', methods=['POST'])
+@first_mod.route('/api/account/register', methods=['POST'])
 def register():
     return User().signup()
 
 
-@mod_first.route('/api/account/', methods=['POST'])
+@first_mod.route('/api/account/', methods=['POST'])
 def login():
     return User().login()
 
 
-@mod_first.route('/api/account/logout', methods=['POST'])
+@first_mod.route('/api/account/logout', methods=['POST'])
 def logout():
     return User().signout()
 
 
-@mod_first.route('/api/account/unsubscribe/<feed_id>', methods=['GET'])
+@first_mod.route('/api/account/unsubscribe/<feed_id>', methods=['GET'])
 def unsubscribe(feed_id):
     return User.unsubscribeFeed(feed_id)
 
 
-@mod_first.route('/api/account/<feed_id>', methods=['POST'])
+@first_mod.route('/api/account/<feed_id>', methods=['POST'])
 def publishToFeed(feed_id):
     return User.publishToFeed(feed_id)
 
 
-@mod_first.route('/api/account/subscribe/<feed_id>', methods=['GET'])
+@first_mod.route('/api/account/subscribe/<feed_id>', methods=['GET'])
 def subscribe(feed_id):
     return User.subscribeFeed(feed_id)
 
 
-@mod_first.route('/api/account/<feed_id>/data', methods=['GET'])
+@first_mod.route('/api/account/<feed_id>/data', methods=['GET'])
 def getDataOfTopic(feed_id):
     restClient = Client(ADAFRUIT_IO_USERNAME0, ADAFRUIT_IO_KEYBBC0) if feed_id in feeds_of_client[0] else Client(
         ADAFRUIT_IO_USERNAME1, ADAFRUIT_IO_KEYBBC1)
@@ -77,7 +77,7 @@ def getDataOfTopic(feed_id):
         return jsonify({"status": "false", "msg": "No feed available at the moment on this feed"}), 200
 
 
-@mod_first.route('/api/account/<feed_id>/seven_data', methods=['GET'])
+@first_mod.route('/api/account/<feed_id>/seven_data', methods=['GET'])
 def getSevenNearestValue(feed_id):
     dict_data = []
     client1 = Client(ADAFRUIT_IO_USERNAME1, ADAFRUIT_IO_KEYBBC1)
@@ -137,7 +137,7 @@ def getSevenNearestValue(feed_id):
         return jsonify(return_value), 400
 
 
-@mod_first.route('/api/account/data', methods=['GET'])
+@first_mod.route('/api/account/data', methods=['GET'])
 def getAllSensorsLatestData():
     dict_data = []
     client1 = Client(ADAFRUIT_IO_USERNAME1, ADAFRUIT_IO_KEYBBC1)
@@ -170,7 +170,7 @@ def getAllSensorsLatestData():
     return jsonify({"data": dict_data, "status": "true"}), 200
 
 
-@mod_first.route('/api/account/humidity_warning', methods=['GET', 'PUT'])
+@first_mod.route('/api/account/humidity_warning', methods=['GET', 'PUT'])
 def modifyHumidityRate():
     if request.method == 'PUT':
         value = request.get_json()['value']
@@ -187,7 +187,7 @@ def modifyHumidityRate():
         return jsonify({"rate": global_ctx['humidity_rate'], "status": "true"}), 200
 
 
-@mod_first.route('/api/account/temp_warning', methods=['GET', 'PUT'])
+@first_mod.route('/api/account/temp_warning', methods=['GET', 'PUT'])
 def modifyTempRate():
     if request.method == 'PUT':
         value = request.get_json()['value']
@@ -204,7 +204,7 @@ def modifyTempRate():
         return jsonify({"rate": global_ctx['temp_rate'], "status": "true"}), 200
 
 
-@mod_first.route('/api/account/logs', methods=['GET'])
+@first_mod.route('/api/account/logs', methods=['GET'])
 def getLogs():
     listOfLogs = list(db.LOGS.find({}, {"_id": 0}))
     return jsonify({

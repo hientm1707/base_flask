@@ -12,11 +12,11 @@ def not_found(error):
     return render_template('404.html'), 404
 
 
-from app.ecommerce_bookstore.controllers import mod_first as mod_first
+from app.ecommerce_bookstore.controllers import first_mod as first_mod
 
 
 # Register blueprint(s)
-app.register_blueprint(mod_first)
+app.register_blueprint(first_mod)
 
 if __name__ == '__main__':
     app.run(port=5001)
