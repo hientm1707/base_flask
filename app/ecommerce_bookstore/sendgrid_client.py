@@ -32,7 +32,7 @@ class SendGridClient:
     def _get_headers(self):
         return {
             "Content-type": "application/json",
-            "X-RapidAPI-Key": os.environ['X-RapidAPI-Key'],
+            "X-RapidAPI-Key": os.environ['X_RapidAPI_Key'],
             "X-RapidAPI-Host": "rapidprod-sendgrid-v1.p.rapidapi.com"
         }
 
