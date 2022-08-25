@@ -1,5 +1,8 @@
 import requests
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 class SendGridClient:
     def __init__(self, _method, _from, _to, _subject, _content):
         self._url = "https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send"
@@ -36,4 +39,5 @@ class SendGridClient:
 
 
     def send(self):
+        logger.log(level=1, msg="SENDING EMAIL")
         return requests.request(self._method, self._url, json=self._get_payload(), headers=self._get_headers())
