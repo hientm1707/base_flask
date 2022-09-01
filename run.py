@@ -18,5 +18,3 @@ from app.ecommerce_bookstore.controllers import first_mod as first_mod
 # Register blueprint(s)
 app.register_blueprint(first_mod)
 
-if __name__ == '__main__':
-    app.run(port=5001)
