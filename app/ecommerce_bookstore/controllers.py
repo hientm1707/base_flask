@@ -1,7 +1,7 @@
 # from Adafruit_IO import Client, RequestError
 from flask import make_response, jsonify, json, request, session, Blueprint
 from . import sendgrid_client
-first_mod = Blueprint('auth', __name__, url_prefix='/test')
+first_mod = Blueprint('auth', __name__, url_prefix='')
 
 @first_mod.route('/', methods=['GET'])
 def homepage():
